@@ -1,5 +1,6 @@
 package com.me.tft_02.everlastingweather;
 
+import java.io.IOException;
 import java.util.logging.Level;
 
 import org.bukkit.ChatColor;
@@ -29,6 +30,16 @@ public class EverlastingWeather extends JavaPlugin {
         getCommand("eweather").setExecutor(new Commands(this));
 
         checkForUpdates();
+
+        if (getConfig().getBoolean("General.stats_tracking_enabled")) {
+            try {
+                Metrics metrics = new Metrics(this);
+                metrics.start();
+            }
+            catch (IOException e) {
+                System.out.println("Failed to submit stats.");
+            }
+        }
     }
 
     private void setupConfiguration() {
