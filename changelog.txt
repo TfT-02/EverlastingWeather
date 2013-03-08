@@ -1,0 +1,14 @@
+Changelog:
+
+Key:
+  + Addition
+  = Fix
+  ! Change
+  - Removal
+
+Version 1.0.0 | Tested on CB 1.4.6-R0.2
+ + First release
+ + Added config to set a weather state for every world
+ + Added commands to manage weather states for every world
+ + Added Metrics for stats
+ + Added an update check
