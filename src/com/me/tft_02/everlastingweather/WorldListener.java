@@ -43,25 +43,4 @@ public class WorldListener implements Listener {
             event.setCancelled(true);
         }
     }
-
-    public void updateWeather() {
-        for (World world : plugin.getServer().getWorlds()) {
-            String worldName = world.getName().toLowerCase();
-
-            boolean sunny = plugin.getConfig().getBoolean(worldName + ".Always_Sunny");
-            boolean rainy = plugin.getConfig().getBoolean(worldName + ".Always_Rainy");
-            boolean thundering = plugin.getConfig().getBoolean(worldName + ".Always_Thundering");
-
-            if (sunny) {
-                world.setStorm(false);
-                world.setThundering(false);
-            }
-            else if (rainy) {
-                world.setStorm(true);
-                if (thundering)
-                    world.setThundering(true);
-            }
-            world.setWeatherDuration(20 * 60 * 10);
-        }
-    }
 }

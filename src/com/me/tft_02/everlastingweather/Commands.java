@@ -15,8 +15,6 @@ public class Commands implements CommandExecutor {
         plugin = instance;
     }
 
-    private WorldListener worldListener = new WorldListener(plugin);
-
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("eweather")) {
@@ -54,7 +52,7 @@ public class Commands implements CommandExecutor {
 
     private boolean updateWeather(CommandSender sender) {
         sender.sendMessage(ChatColor.GREEN + "Updated weather.");
-        worldListener.updateWeather();
+        plugin.updateWeather();
         return true;
     }
 
@@ -71,6 +69,7 @@ public class Commands implements CommandExecutor {
         }
         if (world == null) {
             sender.sendMessage(ChatColor.RED + "Invalid World.");
+            sender.sendMessage(ChatColor.RED + "Usage: /eweather info [World]");
             return false;
         }
         String worldName = world.getName().toLowerCase();
@@ -105,21 +104,32 @@ public class Commands implements CommandExecutor {
                 else if (args[2].equalsIgnoreCase("false") || args[2].equalsIgnoreCase("disabled") || args[2].equalsIgnoreCase("off")) {
                     status = "true";
                 }
+                else {
+                    sender.sendMessage("Usage: /eweather set [World] [Clear | Rain | Thunder] [true | false]");
+                    return false;
+                }
 
                 String worldName = world.getName().toLowerCase();
 
                 if (args[2].equalsIgnoreCase("clear") || args[2].equalsIgnoreCase("sun") || args[2].equalsIgnoreCase("sunny")) {
                     plugin.getConfig().set(worldName + ".Always_Sunny", status);
-
+                    sender.sendMessage(ChatColor.GREEN + "Always_Sunny has been set to " + ChatColor.DARK_AQUA + status + ChatColor.GREEN + " for world: " + ChatColor.DARK_AQUA + worldName);
                 }
                 else if (args[2].equalsIgnoreCase("rain") || args[2].equalsIgnoreCase("rainy")) {
                     plugin.getConfig().set(worldName + ".Always_Rainy", status);
+                    sender.sendMessage(ChatColor.GREEN + "Always_Rainy has been set to " + ChatColor.DARK_AQUA + status + ChatColor.GREEN + " for world: " + ChatColor.DARK_AQUA + worldName);
 
                 }
                 else if (args[2].equalsIgnoreCase("thunder") || args[2].equalsIgnoreCase("thundering")) {
                     plugin.getConfig().set(worldName + ".Always_Thundering", status);
+                    sender.sendMessage(ChatColor.GREEN + "Always_Thundering has been set to " + ChatColor.DARK_AQUA + status + ChatColor.GREEN + " for world: " + ChatColor.DARK_AQUA + worldName);
 
                 }
+                else {
+                    sender.sendMessage("Usage: /eweather set [World] [Clear | Rain | Thunder] [true | false]");
+                    return false;
+                }
+                plugin.updateWeather();
                 return true;
 
             default:
@@ -148,13 +158,12 @@ public class Commands implements CommandExecutor {
         plugin.getConfig().set(worldName + ".Always_Sunny", "false");
         plugin.getConfig().set(worldName + ".Always_Rainy", "false");
         plugin.getConfig().set(worldName + ".Always_Thundering", "false");
-        sender.sendMessage(ChatColor.GREEN + "Weather settings for " + ChatColor.DARK_AQUA + worldName + ChatColor.GREEN + "have been reset.");
+        sender.sendMessage(ChatColor.GREEN + "Weather settings for " + ChatColor.DARK_AQUA + worldName + ChatColor.GREEN + " have been reset.");
         return true;
     }
 
     private boolean reloadConfiguration(CommandSender sender) {
         plugin.reloadConfig();
-        worldListener.updateWeather();
         sender.sendMessage(ChatColor.GREEN + "Configuration reloaded.");
         return false;
     }

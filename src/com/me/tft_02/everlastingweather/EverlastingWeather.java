@@ -18,7 +18,7 @@ public class EverlastingWeather extends JavaPlugin {
 
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(worldListener, this);
-        worldListener.updateWeather();
+        updateWeather();
 
         getCommand("eweather").setExecutor(new Commands(this));
     }
@@ -40,5 +40,26 @@ public class EverlastingWeather extends JavaPlugin {
     @Override
     public void onDisable() {
         this.getServer().getScheduler().cancelTasks(this);
+    }
+
+    public void updateWeather() {
+        for (World world : this.getServer().getWorlds()) {
+            String worldName = world.getName().toLowerCase();
+
+            boolean sunny = this.getConfig().getBoolean(worldName + ".Always_Sunny");
+            boolean rainy = this.getConfig().getBoolean(worldName + ".Always_Rainy");
+            boolean thundering = this.getConfig().getBoolean(worldName + ".Always_Thundering");
+
+            if (sunny) {
+                world.setStorm(false);
+                world.setThundering(false);
+            }
+            else if (rainy) {
+                world.setStorm(true);
+                if (thundering)
+                    world.setThundering(true);
+            }
+            world.setWeatherDuration(20 * 60 * 10);
+        }
     }
 }
