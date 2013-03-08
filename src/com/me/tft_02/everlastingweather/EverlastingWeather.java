@@ -1,5 +1,8 @@
 package com.me.tft_02.everlastingweather;
 
+import java.util.logging.Level;
+
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
@@ -8,6 +11,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class EverlastingWeather extends JavaPlugin {
 
     private WorldListener worldListener = new WorldListener(this);
+
+    // Update Check
+    public boolean updateAvailable;
 
     /**
      * Run things on enable.
@@ -21,10 +27,14 @@ public class EverlastingWeather extends JavaPlugin {
         updateWeather();
 
         getCommand("eweather").setExecutor(new Commands(this));
+
+        checkForUpdates();
     }
 
     private void setupConfiguration() {
         final FileConfiguration config = this.getConfig();
+        config.addDefault("General.stats_tracking_enabled", true);
+        config.addDefault("General.update_check_enabled", true);
         for (World world : getServer().getWorlds()) {
             config.addDefault(world.getName().toLowerCase() + ".Always_Sunny", false);
             config.addDefault(world.getName().toLowerCase() + ".Always_Rainy", false);
@@ -40,6 +50,22 @@ public class EverlastingWeather extends JavaPlugin {
     @Override
     public void onDisable() {
         this.getServer().getScheduler().cancelTasks(this);
+    }
+
+    private void checkForUpdates() {
+        if (getConfig().getBoolean("General.update_check_enabled")) {
+            try {
+                updateAvailable = UpdateChecker.updateAvailable();
+            }
+            catch (Exception e) {
+                updateAvailable = false;
+            }
+
+            if (updateAvailable) {
+                this.getLogger().log(Level.INFO, ChatColor.GOLD + "EverlastingWeather is outdated!");
+                this.getLogger().log(Level.INFO, ChatColor.AQUA + "http://dev.bukkit.org/server-mods/EverlastingWeather/");
+            }
+        }
     }
 
     public void updateWeather() {

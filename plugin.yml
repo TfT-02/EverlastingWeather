@@ -12,3 +12,6 @@ permissions:
     everlastingweather.eweather:
         description: Gives access to the weather commands
         default: op
+    everlastingweather.updatecheck:
+        description: Users with this permission will receive a notification when there is a new version available.
+        default: op
