@@ -12,7 +12,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class EverlastingWeather extends JavaPlugin {
 
     private WorldListener worldListener = new WorldListener(this);
-
+    private PlayerListener playerListener = new PlayerListener(this);
+    
     // Update Check
     public boolean updateAvailable;
 
@@ -25,6 +26,7 @@ public class EverlastingWeather extends JavaPlugin {
 
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(worldListener, this);
+        pm.registerEvents(playerListener, this);
         updateWeather();
 
         getCommand("eweather").setExecutor(new Commands(this));

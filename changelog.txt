@@ -6,6 +6,9 @@ Key:
   ! Change
   - Removal
 
+Version 1.0.1 | Tested on CB 1.4.6-R0.2
+ = Registered the player listener
+
 Version 1.0.0 | Tested on CB 1.4.6-R0.2
  + First release
  + Added config to set a weather state for every world
