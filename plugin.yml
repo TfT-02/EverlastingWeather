@@ -2,7 +2,7 @@ name: EverlastingWeather
 author: TfT_02
 main: com.me.tft_02.everlastingweather.EverlastingWeather
 description: Set everlasting weather for each world!
-version: 1.0.0
+version: 1.0.1
 commands:
    eweather:
       description: Usage /eweather
