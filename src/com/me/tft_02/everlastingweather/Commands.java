@@ -63,7 +63,6 @@ public class Commands implements CommandExecutor {
                 world = Bukkit.getWorld(args[1]);
             default:
                 if (sender instanceof Player) {
-                    sender.sendMessage("sender = player");
                     world = ((Player) sender).getWorld();
                 }
         }
