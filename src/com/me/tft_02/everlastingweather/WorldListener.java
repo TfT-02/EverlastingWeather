@@ -15,7 +15,7 @@ public class WorldListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    private void onWeatherChange (WeatherChangeEvent event) {
+    private void onWeatherChange(WeatherChangeEvent event) {
         World world = event.getWorld();
         String worldName = world.getName().toLowerCase();
 
@@ -33,7 +33,7 @@ public class WorldListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    private void onThunderChange (ThunderChangeEvent event) {
+    private void onThunderChange(ThunderChangeEvent event) {
         World world = event.getWorld();
         String worldName = world.getName().toLowerCase();
         boolean changeToThunder = event.toThunderState();

@@ -13,7 +13,7 @@ public class EverlastingWeather extends JavaPlugin {
 
     private WorldListener worldListener = new WorldListener(this);
     private PlayerListener playerListener = new PlayerListener(this);
-    
+
     // Update Check
     public boolean updateAvailable;
 

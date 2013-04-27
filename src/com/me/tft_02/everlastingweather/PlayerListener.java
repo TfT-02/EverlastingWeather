@@ -14,10 +14,10 @@ public class PlayerListener implements Listener {
         plugin = instance;
     }
 
-
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     private void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+
         if (plugin.updateAvailable && player.hasPermission("everlastingweather.updatecheck")) {
             player.sendMessage(ChatColor.GOLD + "EverlastingWeather is outdated!");
             player.sendMessage(ChatColor.AQUA + "http://dev.bukkit.org/server-mods/EverlastingWeather/");
