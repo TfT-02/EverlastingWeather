@@ -6,6 +6,8 @@ Key:
   ! Change
   - Removal
 
+Version 1.0.3 | Tested on CB 1.5.1-R0.2
+
 Version 1.0.2 | Tested on CB 1.5.1-R0.2
  = Fixed bug with the Update Checker
  = Fixed bugs with the commands
