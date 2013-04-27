@@ -6,8 +6,9 @@ Key:
   ! Change
   - Removal
 
-Version 1.0.2 | Tested on CB 1.4.7-R1.0
+Version 1.0.2 | Tested on CB 1.5.1-R0.2
  = Fixed bug with the Update Checker
+ = Fixed bugs with the commands
 
 Version 1.0.1 | Tested on CB 1.4.6-R0.2
  = Registered the player listener

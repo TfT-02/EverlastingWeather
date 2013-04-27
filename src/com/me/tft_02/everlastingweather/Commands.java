@@ -46,7 +46,7 @@ public class Commands implements CommandExecutor {
     }
 
     private boolean printUsage(CommandSender sender) {
-        sender.sendMessage("Usage: /eweather [update | info | set | reset | reload]");
+        sender.sendMessage(ChatColor.GRAY + "Usage: /eweather [update | info | set | reset | reload]");
         return false;
     }
 
@@ -90,21 +90,21 @@ public class Commands implements CommandExecutor {
         switch (args.length) {
             case 4:
                 world = Bukkit.getWorld(args[1]);
-                String status = "false";
+                boolean status = false;
 
                 if (world == null) {
                     sender.sendMessage(ChatColor.RED + "Invalid World.");
                     return false;
                 }
 
-                if (args[2].equalsIgnoreCase("true") || args[2].equalsIgnoreCase("enabled") || args[2].equalsIgnoreCase("on")) {
-                    status = "true";
+                if (args[3].equalsIgnoreCase("true") || args[3].equalsIgnoreCase("enabled") || args[3].equalsIgnoreCase("on")) {
+                    status = true;
                 }
-                else if (args[2].equalsIgnoreCase("false") || args[2].equalsIgnoreCase("disabled") || args[2].equalsIgnoreCase("off")) {
-                    status = "true";
+                else if (args[3].equalsIgnoreCase("false") || args[2].equalsIgnoreCase("disabled") || args[3].equalsIgnoreCase("off")) {
+                    status = false;
                 }
                 else {
-                    sender.sendMessage("Usage: /eweather set [World] [Clear | Rain | Thunder] [true | false]");
+                    sender.sendMessage(ChatColor.RED + "Invalid argument, use <true/false>");
                     return false;
                 }
 
@@ -122,17 +122,17 @@ public class Commands implements CommandExecutor {
                 else if (args[2].equalsIgnoreCase("thunder") || args[2].equalsIgnoreCase("thundering")) {
                     plugin.getConfig().set(worldName + ".Always_Thundering", status);
                     sender.sendMessage(ChatColor.GREEN + "Always_Thundering has been set to " + ChatColor.DARK_AQUA + status + ChatColor.GREEN + " for world: " + ChatColor.DARK_AQUA + worldName);
-
                 }
                 else {
-                    sender.sendMessage("Usage: /eweather set [World] [Clear | Rain | Thunder] [true | false]");
+                    sender.sendMessage(ChatColor.GRAY + "Usage: /eweather set <world> <weather> <true/false>");
                     return false;
                 }
+                plugin.saveConfig();
                 plugin.updateWeather();
                 return true;
 
             default:
-                sender.sendMessage("Usage: /eweather set [World] [Clear | Rain | Thunder] [true | false]");
+                sender.sendMessage(ChatColor.GRAY + "Usage: /eweather set <world> <weather> <true/false>");
                 return false;
         }
     }
